@@ -80,12 +80,14 @@ def show_person(
         min_length=1, 
         max_length=50,
         title='Person Name',
-        description='This is the person name'
+        description='This is the person name',
+        example='Sandra'
         ), 
     age: int = Query(
         ...,
         title='Person Age',
-        description='This is the person age'
+        description='This is the person age',
+        example=31
         )
     ):
 
@@ -98,7 +100,8 @@ def show_person(
         ..., 
         gt=0,
         title='Person Id',
-        description='This is the Person Id'
+        description='This is the Person Id',
+        example=123
         )
     ):
 
@@ -111,7 +114,8 @@ def update_person(
             ...,
             gt=0,
             title='Person id',
-            description='This is the Person Id'
+            description='This is the Person Id',
+            example=123
         ),
         person: Person=Body(...),
         # location: Location=Body(...)
