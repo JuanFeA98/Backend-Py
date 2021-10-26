@@ -38,6 +38,41 @@ class Person(BaseModel):
         gt=0,
         le=115
         )
+    password: str = Field(
+        ...,
+        min_length=8
+        )
+    hair_color: Optional[HairColor] = Field(default=None)
+    is_married: Optional[bool] = Field(default=None)
+
+    class Config:
+        schema_extra = {
+            'example': {
+                'first_name': 'Sandra',
+                'last_name': 'Martínez',
+                'age': 13,
+                'password':'admin123',
+                'hair_color': 'brown',
+                'is_married': False
+            }
+        }
+
+class PersonOut(BaseModel):
+    first_name: str = Field(
+        ...,
+        min_length=1,
+        max_length=50
+        )
+    last_name: str = Field(
+        ...,
+        min_length=1,
+        max_length=50
+        )
+    age: int = Field(
+        ...,
+        gt=0,
+        le=115
+        )
     hair_color: Optional[HairColor] = Field(default=None)
     is_married: Optional[bool] = Field(default=None)
 
@@ -68,7 +103,7 @@ def alt_id(id):
     return {'id': int(id)}
 
 # Request and response body
-@app.post('/person/new')
+@app.post('/person/new', response_model=PersonOut)
 def new_person(persona: Person = Body(...)):
     return persona
 
